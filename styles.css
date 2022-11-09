@@ -12,7 +12,7 @@ body {
     font-family: 'Fira Code', monospace;
     color: whitesmoke;
     background-color: darksalmon;
-    height: 100vh;
+    max-height: 100vh;
 }
 
 section {
@@ -24,6 +24,8 @@ section {
 
     margin: 0 auto;
     padding-top: 32px;
+    max-height: 70%;
+
 }
 
 
@@ -37,7 +39,8 @@ p {
 
 
 .board {
-    width: max(40vw, 400px);
+    width: max(30vw, 400px);
+    height: 80%;
     
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -59,4 +62,8 @@ p {
 i {
     font-size: 80px;
     color: salmon;
+}
+
+.markContainer p {
+    color: black
 }
