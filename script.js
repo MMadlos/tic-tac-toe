@@ -46,33 +46,24 @@ const game = (() => {
     })()
 
     function renderContent() {
+        // Delete existing icons
+        const iconsAll = document.querySelectorAll("i");
+        iconsAll.forEach(icon => { icon.remove() })
+
         // Select and create DOM
         const markContainerAll = document.querySelectorAll(".markContainer")
-        const iconsAll = document.querySelectorAll("i");
-        iconsAll.forEach(icon => {
-            icon.remove();
-        })
-
         markContainerAll.forEach(box => {
-            // Get data-boxPosition from each container
-            let boxAttribute = box.getAttribute("data-boxPosition")
+            const boxAttribute = box.getAttribute("data-boxPosition")
+            const boxPosition = document.querySelector(`[data-boxPosition="${boxAttribute}"]`)
+            const xIcon = document.createElement("i")  
+            const oIcon = document.createElement("i")
 
-            // Check if the box position has a value
-            if (gameboard[boxAttribute] !== undefined){
-                const boxPosition = document.querySelector(`[data-boxPosition="${boxAttribute}"]`)
+            xIcon.classList.add("fa-solid", "fa-xmark");
+            oIcon.classList.add("fa-solid", "fa-circle")
 
-                if(gameboard[boxAttribute] === "X"){
-                    const xIcon = document.createElement("i")  
-                    xIcon.classList.add("fa-solid", "fa-xmark");
-                    boxPosition.appendChild(xIcon);
-                }
-                if(gameboard[boxAttribute] === "O"){
-                    const oIcon = document.createElement("i")
-                    oIcon.classList.add("fa-solid", "fa-circle")
-                    boxPosition.appendChild(oIcon);
-                }
-
-            }
+            if (gameboard[boxAttribute] === undefined) {return}
+            if (gameboard[boxAttribute] === "X") { boxPosition.appendChild(xIcon) }
+            if (gameboard[boxAttribute] === "O") { boxPosition.appendChild(oIcon) }
         })
     }
     
