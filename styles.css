@@ -37,6 +37,33 @@ p {
     text-align: center;
 }
 
+p#message {
+    font-size: 40px;
+    font-weight: 800;
+    background-color: lightgoldenrodyellow;
+    color: salmon;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.inactive {
+    display: none;
+}
+
+
+
+#restartGame {
+    padding: 16px 32px;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: 'Fira Code', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-color: lightgoldenrodyellow;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+}
 
 .board {
     width: max(30vw, 400px);
@@ -68,4 +95,8 @@ i {
 
 .markContainer p {
     color: black
+}
+
+.opacity {
+    opacity: 50%;
 }
