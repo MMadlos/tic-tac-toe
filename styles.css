@@ -49,12 +49,14 @@ p {
 }
 
 .markContainer {
+    color: salmon;
     background-color: lightgoldenrodyellow;
     width: 100%;
     aspect-ratio: 1;
     border-radius: 8px;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
