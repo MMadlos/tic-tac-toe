@@ -1,53 +1,55 @@
+const gameboard = []
+
 const game = (() => {
 
-    let gameboard = []
-
+    const getGameboard = () => console.table(gameboard)
     const addMoves = (boxNumber, mark) => {
-        gameboard[boxNumber] = mark;
+        gameboard[boxNumber] = mark
+        renderContent();
     }
-    
-    // const player = (name, mark) => {
-    //     return {name, mark}
-    // }
 
-    // const user = player("User", "X")
-    // const computer = player("Computer", "O")
+    const resetGame = () => {
+        gameboard = []
+        renderContent();
+    }
 
     const displayControler = (() => {
         const markContainerAll = document.querySelectorAll(".markContainer")
         markContainerAll.forEach(box => {
             box.addEventListener("click", () => {
-                // Delete p element
-                let boxParagraph = box.querySelector("p")
-                if(boxParagraph) {boxParagraph.remove()}
-
-                let boxAttribute = box.getAttribute("data-boxPosition")
-                let gameboardLength = Object.keys(gameboard).length
-
-                if (gameboard[boxAttribute] !== undefined){return}
-                
-                // i === número máximo de jugadas. Son 9 turnos porque hay 9 casillas.
-                for (let i = gameboardLength; i < 9; i++){
-                    if (i === 8) {return showMessage("empate")}
-
-                    // Si la i es impar, es el turno del primer jugador y la marca es X
-                    if (i % 2 !== 0){ 
-                        gameboard[boxAttribute] = "X"
-                        renderContent()
-                        checkWin()
-                        return 
-                    }
-
-                    if (i % 2 === 0){ 
-                        gameboard[boxAttribute] = "O"
-                        renderContent()
-                        checkWin()
-                        return
-                    }
-                }
+                gameDynamics(box)
+                renderContent()
+                checkWin()
             })
         })
     })()
+
+    function gameDynamics(element) {
+        // Delete p element
+        let boxParagraph = element.querySelector("p")
+        if(boxParagraph) {boxParagraph.remove()}
+
+        let boxAttribute = element.getAttribute("data-boxPosition")
+        let gameboardLength = Object.keys(gameboard).length
+
+        if (gameboard[boxAttribute] !== undefined){return}
+
+        // i === número máximo de jugadas. Son 9 turnos porque hay 9 casillas.
+        for (let i = gameboardLength; i < 9; i++){
+            if (i === 8) {
+                const boxContainers = document.querySelector(".board")
+                boxContainers.classList.add("opacity")
+                
+                showMessage("empate")
+
+                return gameboard[boxAttribute] = "X"
+            }
+
+            // Si la i es impar, es el turno del primer jugador y la marca es X
+            if (i % 2 !== 0) {return gameboard[boxAttribute] = "X"}
+            if (i % 2 === 0) {return gameboard[boxAttribute] = "O"}
+        }
+    }
 
     function renderContent() {
         // Delete existing icons
@@ -69,6 +71,7 @@ const game = (() => {
             if (gameboard[boxAttribute] === "X") { boxPosition.appendChild(xIcon) }
             if (gameboard[boxAttribute] === "O") { boxPosition.appendChild(oIcon) }
         })
+
     }
     
     function checkWin() {
@@ -87,8 +90,6 @@ const game = (() => {
             
             
             if (haveSameValue && !areUndefined ) {              
-                showMessage("fila")
-
                 const boxContainers = document.querySelectorAll(".board > .markContainer")
                 boxContainers.forEach(box => {
                     let boxAttribute = box.getAttribute("data-boxPosition")
@@ -97,6 +98,7 @@ const game = (() => {
                     }
                 })
 
+                showMessage("fila")
                 return
             }
         }
@@ -129,32 +131,45 @@ const game = (() => {
         }
 
         // Si las diagonales son del mismo símbolo --> box11 = box22 = box33 || box13 = box22 = box31
-        // Check si son undefined las diagonales --> return
 
-        let hasSameValueFirstDiagonal = gameboard.box11 === gameboard.box22 && gameboard.box22 === gameboard.box33
-        let areUndefinedFirstDiagonal = gameboard.box11 === undefined && gameboard.box22 === undefined && gameboard.box33 === undefined
+        let firstDiagonalArray = [gameboard.box11, gameboard.box22, gameboard.box33]
+        let secondDiagonalArray = [gameboard.box13, gameboard.box22, gameboard.box31]
+
+        function checkIfAllValuesAreUndefined(array) {
+            if (array[0] === undefined && array[1] === undefined && array[2] === undefined) {return true}
+            return false
+        }
+
+        function checkIfAllValuesAreEqual(array) {
+            if (checkIfAllValuesAreUndefined(array)) {return false}
+            if (array[0] === array[1] && array[1] === array[2]) {return true}
+            return false;
+        }
+
         
-        let hasSameValueSecondDiagonal = gameboard.box13 === gameboard.box22 && gameboard.box22 === gameboard.box31
-        let areUndefinedSecondDiagonal = gameboard.box13 === undefined && gameboard.box22 === undefined && gameboard.box31 === undefined
 
+        let areSameValuesFirstDiagonal = checkIfAllValuesAreEqual(firstDiagonalArray)
+        let areSameValuesSecondDiagonal = checkIfAllValuesAreEqual(secondDiagonalArray)
 
-        if (hasSameValueFirstDiagonal && !areUndefinedFirstDiagonal || hasSameValueSecondDiagonal && !areUndefinedSecondDiagonal){
+        if (areSameValuesFirstDiagonal || areSameValuesSecondDiagonal) {
             showMessage("diagonal")
 
-            // const boxContainers = document.querySelectorAll(".board > .markContainer")
-            // boxContainers.forEach(box => {
-            //     let boxAttribute = box.getAttribute("data-boxPosition")
-            //     if (boxAttribute !== gameboard.box11 && boxAttribute !== gameboard.box22 && boxAttribute !== gameboard.box33 || boxAttribute !== gameboard.box13 && boxAttribute !== gameboard.box22 && boxAttribute !== gameboard.box32 ) {
-            //         box.classList.add("opacity")
-            //     }
-            // })
+            const boxContainers = document.querySelectorAll(".board > .markContainer")
+            boxContainers.forEach(box => {
+                let boxAttribute = box.getAttribute("data-boxPosition")
+                if (areSameValuesFirstDiagonal){
+                    if (boxAttribute !== "box11" && boxAttribute !== "box22" && boxAttribute !== "box33") {
+                        box.classList.add("opacity")
+                    }
+                } else {
+                    if (boxAttribute !== "box13" && boxAttribute !== "box22" && boxAttribute !== "box31") {
+                        box.classList.add("opacity")
+                    }
+                }
+            })
         }
     }
 
-    function resetGame() {
-        gameboard = []
-        renderContent();
-    }
 
     function showMessage(jugada) {
         let message = document.getElementById("message");
@@ -176,7 +191,7 @@ const game = (() => {
     }
     
 
-    return {gameboard, addMoves};
+    return {getGameboard, addMoves, resetGame};
 })();
 
 
