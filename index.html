@@ -1,56 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic tac toe - The Odin Project</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet"> 
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Tic tac toe - The Odin Project</title>
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+	</head>
+	<body>
+		<section>
+			<h1>Tic-Tac-Toe</h1>
+			<p id="message" class="inactive"></p>
+			<div class="board">
+				<div class="markContainer" data-boxPosition="box11">
+					<!-- <i class="fa-solid fa-xmark"></i> -->
+					<p>box11</p>
+				</div>
+				<div class="markContainer" data-boxPosition="box12">
+					<!-- <i class="fa-solid fa-circle"></i> -->
+					<p>box12</p>
+				</div>
+				<div class="markContainer" data-boxPosition="box13">
+					<p>box13</p>
+				</div>
+				<div class="markContainer" data-boxPosition="box21">
+					<p>box21</p>
+				</div>
+				<div class="markContainer" data-boxPosition="box22">
+					<p>box22</p>
+				</div>
+				<div class="markContainer" data-boxPosition="box23">
+					<p>box23</p>
+				</div>
+				<div class="markContainer" data-boxPosition="box31">
+					<p>box31</p>
+				</div>
+				<div class="markContainer" data-boxPosition="box32">
+					<p>box32</p>
+				</div>
+				<div class="markContainer" data-boxPosition="box33">
+					<p>box33</p>
+				</div>
+			</div>
+			<button id="resetGame" class="#">Reset game</button>
+		</section>
 
-</head>
-<body>
-    <section>
-        <h1>Tic-Tac-Toe</h1>
-        <p id="message" class="inactive"></p>
-        <div class="board">
-            <div class="markContainer" data-boxPosition="box11">
-                <!-- <i class="fa-solid fa-xmark"></i> -->
-                <p>box11</p>
-            </div>
-            <div class="markContainer" data-boxPosition="box12">
-                <!-- <i class="fa-solid fa-circle"></i> -->
-                <p>box12</p>
-            </div>
-            <div class="markContainer" data-boxPosition="box13">
-                <p>box13</p>
-            </div>
-            <div class="markContainer" data-boxPosition="box21">
-                <p>box21</p>
-            </div>
-            <div class="markContainer" data-boxPosition="box22">
-                <p>box22</p>
-            </div>
-            <div class="markContainer" data-boxPosition="box23">
-                <p>box23</p>
-            </div>
-            <div class="markContainer" data-boxPosition="box31">
-                <p>box31</p>
-            </div>
-            <div class="markContainer" data-boxPosition="box32">
-                <p>box32</p>
-            </div>
-            <div class="markContainer" data-boxPosition="box33">
-                <p>box33</p>
-            </div>
-        </div>
-        <button id="restartGame" class="#">Reset game</button>
-    </section>
-
-
-    <script src="script.js" defer></script>
-    <script src="https://kit.fontawesome.com/e16da9793f.js" crossorigin="anonymous"></script>
-</body>
+		<script src="script.js" defer></script>
+		<script src="https://kit.fontawesome.com/e16da9793f.js" crossorigin="anonymous"></script>
+	</body>
 </html>
